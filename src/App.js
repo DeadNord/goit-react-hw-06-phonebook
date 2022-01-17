@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import useLocalStorage from './hooks/useLocalStorage';
+// import { useState, useMemo } from 'react';
+// import useLocalStorage from './hooks/useLocalStorage';
 
 // importComponent
 import Section from './components/phonebook/section/Section';
@@ -8,59 +8,66 @@ import Contacts from './components/phonebook/contacts/Contacts';
 import Filter from './components/phonebook/filter/Filter';
 
 // importScripts
-import { alert } from '@pnotify/core';
-import '@pnotify/core/dist/PNotify.css';
-import '@pnotify/core/dist/BrightTheme.css';
-import { nanoid } from 'nanoid';
+// import { alert } from '@pnotify/core';
+// import '@pnotify/core/dist/PNotify.css';
+// import '@pnotify/core/dist/BrightTheme.css';
+// import { nanoid } from 'nanoid';
+
+// Redux
+// import { useSelector, useDispatch } from 'react-redux';
+// import * as actions from './redux/contacts/contacts-actions';
+// import {
+//   filterContacts,
+//   getFilter,
+// } from './redux/contacts/phonebook-selectors';
 
 function App() {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useLocalStorage('contacts', []);
+  // const [filter, setFilter] = useState('');
 
-  const filterChange = e => {
-    const { value } = e.currentTarget;
-    setFilter(value);
-  };
+  // const changeFilter = e => {
+  //   const { value } = e.currentTarget;
+  //   setFilter(value);
+  // };
 
-  const formSubmit = data => {
-    const contactData = contacts.find(elem => elem.name.includes(data.name));
+  // const addContact = data => {
+  //   const contactData = contacts.find(elem => elem.name.includes(data.name));
 
-    if (contactData) {
-      alert({
-        title: 'Alert',
-        text: `${contactData.name} is already in contacts`,
-      });
-    } else {
-      const userId = { id: nanoid() };
-      setContacts(contacts => [...contacts, { ...userId, ...data }]);
-    }
-  };
+  //   if (contactData) {
+  //     alert({
+  //       title: 'Alert',
+  //       text: `${contactData.name} is already in contacts`,
+  //     });
+  //   } else {
+  //     const userId = { id: nanoid() };
+  //     setContacts(contacts => [...contacts, { ...userId, ...data }]);
+  //   }
+  // };
 
-  const deleteContact = contactId => {
-    setContacts(contacts =>
-      contacts.filter(contact => contact.id !== contactId),
-    );
-  };
+  // const deleteContact = contactId => {
+  //   setContacts(contacts =>
+  //     contacts.filter(contact => contact.id !== contactId),
+  //   );
+  // };
 
-  const filterContact = useMemo(() => {
-    const normalizeFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizeFilter),
-    );
-  }, [contacts, filter]);
+  // const filterContact = useMemo(() => {
+  //   const normalizeFilter = filter.toLowerCase();
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizeFilter),
+  //   );
+  // }, [contacts, filter]);
 
   return (
     <>
       <Section title={'Phonebook'}>
-        <Form onSubmit={formSubmit} />
+        <Form />
       </Section>
       <Section title={'Contacts'}>
-        <Filter value={filter} onChange={filterChange} />
-        <Contacts contacts={filterContact} deleteContact={deleteContact} />
+        <Filter />
+        <Contacts />
       </Section>
     </>
   );
-  // }
 }
 
 export default App;
