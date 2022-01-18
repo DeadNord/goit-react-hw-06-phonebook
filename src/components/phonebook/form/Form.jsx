@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import s from './Form.module.css';
 
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import contactsActions from '../../../redux/contacts/contacts-actions';
 
-const Form = ({ onSubmit }) => {
+export default function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -32,6 +32,9 @@ const Form = ({ onSubmit }) => {
     setName('');
     setNumber('');
   };
+
+  const dispatch = useDispatch();
+  const onSubmit = data => dispatch(contactsActions.addContact(data));
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
@@ -66,10 +69,4 @@ const Form = ({ onSubmit }) => {
       </button>
     </form>
   );
-};
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: data => dispatch(contactsActions.addContact(data)),
-});
-
-export default connect(null, mapDispatchToProps)(Form);
+}
